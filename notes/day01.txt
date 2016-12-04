@@ -1,0 +1,18 @@
+Git Day 1 Notes:
+git hash-object -w --stdin
+  This will output a sha1 for the data inputted
+
+git cat-file -p <sha1>
+  Will cat the file with the given sha1 tag. Can just use the prefix of sha1.
+
+git can store:
+  blobs (chunks of data/files)
+  trees (directories)
+
+Note: If sha1 are different, they will be dramatically different.
+
+Adding a file to a tree will generate a new sha1 data for the directory. Data can never leave the system.
+
+The sha1 of the root directory can reconstruct the entire directory given that there is a way to map sha1 to file data.
+
+No duplication is stored in git. If the content of the file is the same, the sha1 will remain the same.

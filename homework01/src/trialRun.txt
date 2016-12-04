@@ -1,0 +1,14 @@
+        <title>Simple js-parsons example assignment</title>
+        <h2>Simple js-parsons example assignment</h2>
+            it. This exercise is merely trying to give an example of a Parson's
+        <title>Simple js-parsons example assignment</title>
+        <h2>Simple js-parsons example assignment without indentation</h2>
+        <title>Simple js-parsons example assignment</title>
+        <h2>Simple js-parsons pseudocode example assignment</h2>
+        <title>Simple js-parsons example assignment</title>
+        <h2>Simple js-parsons pseudocode example assignment</h2>
+      (an example is provided in the Appendix below).
+  // specify the blocks for the pseudo language as a simple example case
+    // names of blocks as the property values. For example, a pseudocode IF..THEN..ELSE..ENDIF
+    // codeline in the student's code for the LIS computation and, for example,
+   // For example, the first line may not be indented.
