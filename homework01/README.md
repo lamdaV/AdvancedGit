@@ -18,4 +18,4 @@ Call the script like so:
 # Example:
 There is an example file `trialRun.txt` within the `src` directory. This was the output of the following command:
 
-`$ λ python grep-tree-contents.py -p path\to\js-parsons\.git\ -t 4a218e -s example > trialRun.txt`
+`λ python grep-tree-contents.py -p path\to\js-parsons\.git\ -t 7d3b207 -s NOTE > trialRun.txt`
