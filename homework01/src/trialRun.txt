@@ -1,14 +1,5 @@
-        <title>Simple js-parsons example assignment</title>
-        <h2>Simple js-parsons example assignment</h2>
-            it. This exercise is merely trying to give an example of a Parson's
-        <title>Simple js-parsons example assignment</title>
-        <h2>Simple js-parsons example assignment without indentation</h2>
-        <title>Simple js-parsons example assignment</title>
-        <h2>Simple js-parsons pseudocode example assignment</h2>
-        <title>Simple js-parsons example assignment</title>
-        <h2>Simple js-parsons pseudocode example assignment</h2>
-      (an example is provided in the Appendix below).
-  // specify the blocks for the pseudo language as a simple example case
-    // names of blocks as the property values. For example, a pseudocode IF..THEN..ELSE..ENDIF
-    // codeline in the student's code for the LIS computation and, for example,
-   // For example, the first line may not be indented.
+Sk.Tokenizer.Tokens={T_ENDMARKER:0,T_NAME:1,T_NUMBER:2,T_STRING:3,T_NEWLINE:4,T_INDENT:5,T_DEDENT:6,T_LPAR:7,T_RPAR:8,T_LSQB:9,T_RSQB:10,T_COLON:11,T_COMMA:12,T_SEMI:13,T_PLUS:14,T_MINUS:15,T_STAR:16,T_SLASH:17,T_VBAR:18,T_AMPER:19,T_LESS:20,T_GREATER:21,T_EQUAL:22,T_DOT:23,T_PERCENT:24,T_BACKQUOTE:25,T_LBRACE:26,T_RBRACE:27,T_EQEQUAL:28,T_NOTEQUAL:29,T_LESSEQUAL:30,T_GREATEREQUAL:31,T_TILDE:32,T_CIRCUMFLEX:33,T_LEFTSHIFT:34,T_RIGHTSHIFT:35,T_DOUBLESTAR:36,T_PLUSEQUAL:37,T_MINEQUAL:38,T_STAREQUAL:39,
+Sk.Tokenizer.tokenNames={0:"T_ENDMARKER",1:"T_NAME",2:"T_NUMBER",3:"T_STRING",4:"T_NEWLINE",5:"T_INDENT",6:"T_DEDENT",7:"T_LPAR",8:"T_RPAR",9:"T_LSQB",10:"T_RSQB",11:"T_COLON",12:"T_COMMA",13:"T_SEMI",14:"T_PLUS",15:"T_MINUS",16:"T_STAR",17:"T_SLASH",18:"T_VBAR",19:"T_AMPER",20:"T_LESS",21:"T_GREATER",22:"T_EQUAL",23:"T_DOT",24:"T_PERCENT",25:"T_BACKQUOTE",26:"T_LBRACE",27:"T_RBRACE",28:"T_EQEQUAL",29:"T_NOTEQUAL",30:"T_LESSEQUAL",31:"T_GREATEREQUAL",32:"T_TILDE",33:"T_CIRCUMFLEX",34:"T_LEFTSHIFT",
+".":Sk.Tokenizer.Tokens.T_DOT,"%":Sk.Tokenizer.Tokens.T_PERCENT,"`":Sk.Tokenizer.Tokens.T_BACKQUOTE,"{":Sk.Tokenizer.Tokens.T_LBRACE,"}":Sk.Tokenizer.Tokens.T_RBRACE,"@":Sk.Tokenizer.Tokens.T_AT,"==":Sk.Tokenizer.Tokens.T_EQEQUAL,"!=":Sk.Tokenizer.Tokens.T_NOTEQUAL,"<>":Sk.Tokenizer.Tokens.T_NOTEQUAL,"<=":Sk.Tokenizer.Tokens.T_LESSEQUAL,">=":Sk.Tokenizer.Tokens.T_GREATEREQUAL,"~":Sk.Tokenizer.Tokens.T_TILDE,"^":Sk.Tokenizer.Tokens.T_CIRCUMFLEX,"<<":Sk.Tokenizer.Tokens.T_LEFTSHIFT,">>":Sk.Tokenizer.Tokens.T_RIGHTSHIFT,
+function astForCompOp(a,b){REQ(b,SYM.comp_op);if(1===NCH(b))switch(b=CHILD(b,0),b.type){case TOK.T_LESS:return Lt;case TOK.T_GREATER:return Gt;case TOK.T_EQEQUAL:return Eq;case TOK.T_LESSEQUAL:return LtE;case TOK.T_GREATEREQUAL:return GtE;case TOK.T_NOTEQUAL:return NotEq;case TOK.T_NAME:if("in"===b.value)return In_;if("is"===b.value)return Is}else if(2===NCH(b)&&CHILD(b,0).type===TOK.T_NAME){if("in"===CHILD(b,1).value)return NotIn;if("is"===CHILD(b,0).value)return IsNot}goog.asserts.fail("invalid comp_op")}
+NOTE: These are JS and CSS files we use on the site and are here mainly for our convenience.
