@@ -1,0 +1,29 @@
+Representing Commits:
+  If we view git log, we can see the sha1 hash of the commit.
+  Then, we can take the sha1 hash with git cat-file to view information about the tree committed, author, committer, and parent.
+
+  What is parent?
+    If we do a git cat-file -p <parent>, it will lead to another commit (Linked List style going backwards in time).
+
+  Suppose we moved to a previous commit. How do we go back to the current commit?
+    There is no way (with our current knowledge) that we can get the current commit because of how the parent pointers work.
+
+  What happens when we have 2 branches? We will have to merge them. The merge will have two parents pointing to the head of the branches.
+
+  Commits: Name + Date (Logistic) + tree + parent
+    git commit-tree <tree_hash> -p <parent_hash> -m <message>
+
+  Git does not keep track of the changes from one commit to the other. If needed, we need to compute the changes using the hashes.
+
+  We only need a ref to branch. It is inexpensive as we only need a sha1 hash.
+
+  So far, blobs, trees, commits, refs are stored in git.
+
+What to do if you moved to an earlier commit and forgotten the commit hash of the most recent?
+  Use git log
+  Use git reflog
+  Use git fsck --full
+    Then, if we happen to find the dangling block.
+    Create a branch so that git does not delete it as part of its garbage collection process.
+      Note: This may cost a lot of space if left un-merged and the directory changed drastically.
+    
