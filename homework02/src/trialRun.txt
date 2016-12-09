@@ -1,0 +1,45 @@
+D:\lamd\Dropbox\class\js-parsons (alternate_history_test)
+λ git log
+commit 851149130f7ccc10f6068ff56c6256f8f35811d7
+Author: David Lam <dav_lam@ymail.com>
+Date:   Thu Dec 8 20:03:33 2016 -0500
+
+    alternate_history02
+
+commit ce74dabae02f1abbc4f5e3d2e9a4c9106ec95b2a
+Author: David Lam <dav_lam@ymail.com>
+Date:   Thu Dec 8 20:03:33 2016 -0500
+
+    alternate_history01
+
+commit 5a6f454e26b1ba8260fd1595944fbd5981fd1a91
+Author: David Lam <dav_lam@ymail.com>
+Date:   Thu Dec 8 20:03:33 2016 -0500
+
+    alternate_history00
+
+D:\lamd\Dropbox\class\js-parsons (alternate_history_test)
+λ git cat-file -p 851149130f7ccc10f6068ff56c6256f8f35811d7
+tree e6ab292b8cb583d454f0e215311d15dfceb7bf33
+parent ce74dabae02f1abbc4f5e3d2e9a4c9106ec95b2a
+author David Lam <dav_lam@ymail.com> 1481245413 -0500
+committer David Lam <dav_lam@ymail.com> 1481245413 -0500
+
+alternate_history02
+
+D:\lamd\Dropbox\class\js-parsons (alternate_history_test)
+λ git cat-file -p ce74dabae02f1abbc4f5e3d2e9a4c9106ec95b2a
+tree cafd0d121d20251e1a60df8e4f4d99edb3d1840e
+parent 5a6f454e26b1ba8260fd1595944fbd5981fd1a91
+author David Lam <dav_lam@ymail.com> 1481245413 -0500
+committer David Lam <dav_lam@ymail.com> 1481245413 -0500
+
+alternate_history01
+
+D:\lamd\Dropbox\class\js-parsons (alternate_history_test)
+λ git cat-file -p 5a6f454e26b1ba8260fd1595944fbd5981fd1a91
+tree 4a218e805a4bc6a18b288f14f3673d652cbd5530
+author David Lam <dav_lam@ymail.com> 1481245413 -0500
+committer David Lam <dav_lam@ymail.com> 1481245413 -0500
+
+alternate_history00
