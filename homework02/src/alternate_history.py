@@ -6,6 +6,7 @@ import subprocess
 global ENCODING
 ENCODING = "utf-8"
 
+
 def parser():
     """
         Parses argument from the command line.
@@ -38,8 +39,9 @@ def git_commit_tree(tree, message, parent=None):
     if (parent):
         command += ["-p", parent]
 
-    commit_tree = subprocess.run(command, stdout=subprocess.PIPE);
+    commit_tree = subprocess.run(command, stdout=subprocess.PIPE)
     return commit_tree.stdout
+
 
 def git_update_ref(branch_name, commit_hash):
     """
@@ -51,8 +53,10 @@ def git_update_ref(branch_name, commit_hash):
 
         Returns
     """
-    update_ref = subprocess.run(["git", "update-ref", "-m", "alternate_history_generated", "refs/heads/" + branch_name, commit_hash], stdout=subprocess.PIPE)
+    update_ref = subprocess.run(["git", "update-ref", "-m", "alternate_history_generated",
+                                 "refs/heads/" + branch_name, commit_hash], stdout=subprocess.PIPE)
     return update_ref.stdout
+
 
 def generate_alternate_history(trees, branch_name):
     """
@@ -62,7 +66,8 @@ def generate_alternate_history(trees, branch_name):
             trees:          List of SHA1 Tree strings
             branch_name:    String of the new branch with alternate history.
     """
-    # Source for fixed number format: https://stackoverflow.com/questions/17118071/python-add-leading-zeroes-using-str-format
+    # Source for fixed number format:
+    # https://stackoverflow.com/questions/17118071/python-add-leading-zeroes-using-str-format
     message = "alternate_history{0:0>2}"
 
     # Create the base Commit.
@@ -70,10 +75,12 @@ def generate_alternate_history(trees, branch_name):
 
     # Link each subsequent tree to the base Commit.
     for k in range(1, len(trees)):
-        commit_hash = git_commit_tree(trees[k], message.format(k), commit_hash.decode(ENCODING).rstrip());
+        commit_hash = git_commit_tree(trees[k], message.format(
+            k), commit_hash.decode(ENCODING).rstrip())
 
     # Perform the update_ref to create a new branch with alternate history.
     git_update_ref(branch_name, commit_hash.decode(ENCODING).rstrip())
+
 
 def main():
     """
