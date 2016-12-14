@@ -1,0 +1,50 @@
+Reset and Stash
+  We can make a detached head by checking out a specific commit sha1 hash.
+
+    git checkout moves the head around but not messed with the branches.
+
+  If we commit something in a detached head and then checkout out something else. We have no pointer to the bogus commit.
+  If we want to save a reference to the bogus commit without recalling the sha1 hash, we could create a branch to the bogus commit.
+
+Reset:
+  Modifies the Branch.
+
+  3 Trees:
+    1. Commit pointed to by head.
+    2. The INDEX
+      Refers to files marked for commit.
+    3. All the files on your local file system.
+
+  git reset --soft
+    Moves current branches head to new commit.
+    Reference point change but files are still in the index (appears to be staged to). This will compress all future commits into a single commit.
+
+    similar to git squash
+
+    git push will complain. Using the -f flag will clear the history stored on the server
+
+  git reset --mixed (default)
+    Changes like #1
+
+    Updates #2 to match #1. This removes all staged files.
+
+  git reset --hard
+    Destroys everything. Forces all files to point to the same thing.
+
+    Useful for blowing away unwanted stuff. All changes are lost.
+
+Stash:
+  Changes change or unchange are unaffected by a git checkout.
+
+  Suppose we have a file that is not commited but has changes. If we do a checkout, it will error.
+  We need to either commit or stash the changes.
+
+  Stash is like a stack. It does similar things like a reset.
+
+  If we have changes and we don't want to make a commit that should not be pushed but need to move to a different branch, we could stash it and move to the other branch and come back.
+
+  Pros: You don't push a commit you don't mean to.
+
+  Cons: You may forget what is on the stash.
+
+  Arguments: -m (messages), -k (keeps any staged files intact and blows all unstaged files), -u (includes untracked files)
