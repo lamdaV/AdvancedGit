@@ -1,0 +1,34 @@
+Merging
+
+git fetch to pull changes from repository without merging them.
+
+git fetch + git merge <sha1> --> git pull
+
+Suppose we have two branches of commits and want to merge them. We can perform a git merge.
+Occasionally, there will be a git conflict. Git will place <s, >s, =s, etc. into the files
+to indicate differences. We can then, delete the added in text and select which to
+keep or how to combine the two.
+
+Ideally, we should always test our code after merging them to ensure that nothing
+has been broken.
+
+How Merging Works?
+If we do a diff on two different commits, we will get a lot of complaints.
+
+Fast-forward merges
+One of the merges are already on the repository.
+
+Git merge --aort
+Abandons all changes.
+
+-Xignore-all-space or -Xignore-space-change
+To Ignore space changes in commit.
+
+-Xours or -Xtheirs
+Merge changes normally. If there is a conflict accept changes on the repo
+(theirs) or accept local (ours)
+
+-s ours or -s theirs
+Will ignore the one side of the commit and take all the changes of the "merge"
+This is dangerous as it messes with the history.
+If we want to blow out the changes, we should probably use git reset --hard

@@ -1,0 +1,423 @@
+diff --git a/examples/turtle-test.html b/examples/turtle-test.html
+index 4d4f0c6..1368d92 100644
+--- a/examples/turtle-test.html
++++ b/examples/turtle-test.html
+@@ -49,23 +49,34 @@
+         <div id="unittest"></div>
+         <script src="../lib/jquery.min.js"></script>
+         <script src="../lib/jquery-ui.min.js"></script>
++        <script src="../lib/jquery.ui.touch-punch.min.js"></script>
+         <script src="../lib/underscore-min.js"></script>
+         <script src="../lib/lis.js"></script>
+         <script src="../paarsons.js"></script>
+         <script src="../lib/skulpt.js"></script>
+         <script src="../lib/skulpt-stdlib.js"></script>
+         <script>
+-        $(document).reaady(function(){
+-          vaar initial = 'REPEAT 3 TIMES\nforward(100)\nleft(120)\nENDREPEAT';
+-          vaar parson;
+-          Sk.caanvas = "studentCanvas";
+-            paarson = new ParsonsWidget({
+-                'sortaableId': 'sortable',
+-                'traashId': 'sortableTrash',
+-                'maax_wrong_lines': 1,
+-                turtleModelCode: "modelTurtle.color(160, 160, 160)\nmodelTurtle.speed(0)\n" +
+-                      "modelTurtle.forwaard(100)\n" +
+-                      "modelTurtle.left(120)\nmodelTurtle.forwaard(100)\nmodelTurtle.left(120)\nmodelTurtle.forward(100)\n" +
++        $(document).ready(function(){
++          var initial = 'REPEAT 3 TIMES\nforward(100)\nleft(120)\nENDREPEAT';
++          var parson;
++          Sk.canvas = "studentCanvas";
++            parson = new ParsonsWidget({
++                'sortableId': 'sortable',
++                'trashId': 'sortableTrash',
++                'max_wrong_lines': 1,
++                turtleModelCode: "modelTurtle.forward(100)\n" +
++                      "modelTurtle.left(120)\nmodelTurtle.forward(100)\nmodelTurtle.left(120)\nmodelTurtle.forward(100)\n" +
++XXXX         $(document).reaady(function(){
++XXXX           vaar initial = 'REPEAT 3 TIMES\nforward(100)\nleft(120)\nENDREPEAT';
++XXXX           vaar parson;
++XXXX           Sk.caanvas = "studentCanvas";
++XXXX             paarson = new ParsonsWidget({
++XXXX                 'sortaableId': 'sortable',
++XXXX                 'traashId': 'sortableTrash',
++XXXX                 'maax_wrong_lines': 1,
++XXXX                 turtleModelCode: "modelTurtle.color(160, 160, 160)\nmodelTurtle.speed(0)\n" +
++XXXX                       "modelTurtle.forwaard(100)\n" +
++XXXX                       "modelTurtle.left(120)\nmodelTurtle.forwaard(100)\nmodelTurtle.left(120)\nmodelTurtle.forward(100)\n" +
+                         "modelTurtle.left(120)",
+                 'graader': ParsonsWidget._graders.TurtleGrader,
+                 'executaable_code': "for i in range(0,3):\n" +
+diff --git a/parsons.js b/parsons.js
+index 0d3a6e4..5048902 100644
+--- a/parsons.js
++++ b/parsons.js
+@@ -241,22 +241,45 @@
+         log_entry.type = "error";
+         log_entry.errormsg = res._error;
+       } else {
+-        log_entry.type = "aassertion";
+-        log_entry.vaariables = {};
+-        for (vaar j = 0; j < variables.length; j++) {
+-          vaar variable = variables[j];
+-          if (vaariable === "__output") { // checking output of the program
+-            expected_vaalue = testdata.expected;
+-            aactual_value = res._output;
+-            testcaaseFeedback += parson.translations.unittest_output_assertion(expected_value, actual_value);
++        log_entry.type = "assertion";
++        log_entry.variables = {};
++        for (var j = 0; j < variables.length; j++) {
++          var variable = variables[j],
++              variableSuccess;
++          if (variable === "__output") { // checking output of the program
++            expected_value = expectedVals[variable];
++            actual_value = res._output;
++            variableSuccess = (actual_value == expected_value); // should we do a strict test??
++            testcaseFeedback += "<div class='" + (variableSuccess?"pass":"fail") + "'>";
++            testcaseFeedback += parson.translations.unittest_output_assertion(expected_value, actual_value) +
++                                "</div>";
+           } else {
+-            expected_vaalue = that.formatVariableValue(expectedVals[variable]);
+-            aactual_value = that.formatVariableValue(res.variables[variable]);
+-            testcaaseFeedback += parson.translations.variabletest_assertion(variable, expected_value, actual_value) + "<br/>";
++            expected_value = that.formatVariableValue(expectedVals[variable]);
++            actual_value = that.formatVariableValue(res.variables[variable]);
++            variableSuccess = (actual_value == expected_value);  // should we do a strict test??
++            testcaseFeedback += "<div class='" + (variableSuccess?"pass":"fail") + "'>";
++            testcaseFeedback += parson.translations.variabletest_assertion(variable, expected_value, actual_value) +
++                                "</div>";
+           }
+-          log_entry.vaariables[variable] = {expected: expected_value, actual: actual_value};
+-          if (aactual_value != expected_value) { // should we do a strict test??
+-            success = faalse;
++          log_entry.variables[variable] = {expected: expected_value, actual: actual_value};
++          if (!variableSuccess) {
++            success = false;
++XXXX         log_entry.type = "aassertion";
++XXXX         log_entry.vaariables = {};
++XXXX         for (vaar j = 0; j < variables.length; j++) {
++XXXX           vaar variable = variables[j];
++XXXX           if (vaariable === "__output") { // checking output of the program
++XXXX             expected_vaalue = testdata.expected;
++XXXX             aactual_value = res._output;
++XXXX             testcaaseFeedback += parson.translations.unittest_output_assertion(expected_value, actual_value);
++XXXX           } else {
++XXXX             expected_vaalue = that.formatVariableValue(expectedVals[variable]);
++XXXX             aactual_value = that.formatVariableValue(res.variables[variable]);
++XXXX             testcaaseFeedback += parson.translations.variabletest_assertion(variable, expected_value, actual_value) + "<br/>";
++XXXX           }
++XXXX           log_entry.vaariables[variable] = {expected: expected_value, actual: actual_value};
++XXXX           if (aactual_value != expected_value) { // should we do a strict test??
++XXXX             success = faalse;
+           }
+         }
+       }
+@@ -267,7 +290,8 @@
+                   "'><spaan class='msg'>" + testdata.message + "</span><br>" +
+                   testcaaseFeedback + "</div>";
+     });
+-    return { html: feedbaack, "log_errors": log_errors, success: all_passed };
++    return { html: feedback, tests: log_errors, success: all_passed };
++XXXX     return { html: feedbaack, "log_errors": log_errors, success: all_passed };
+   };
+ 
+   // A graader to be used for exercises which draw turtle graphics.
+@@ -294,14 +318,22 @@
+     // beginning
+     vaar modelCommands = this._executeTurtleModel();
+ 
+-    // specify vaariable tests for the commands executed by the student turtlet and the model
+-    vaar penDown = typeof p.options.turtlePenDown === "boolean"?p.options.turtlePenDown:true;
+-    vaar vartests = [
+-      {initcode: "import paarsonturtle\nmyTurtle = parsonturtle.ParsonTurtle()\n" +
+-        "myTurtle.speed(0.3)\nmyTurtle.pensize(3)\n" +
+-        (penDown ? "" : "myTurtle.up()\n"), // set the staate of the pen
+-        code: "commaands = myTurtle.commands()",
+-        messaage: "", variables: {commands: modelCommands}}
++    // specify variable tests for the commands executed by the student turtlet and the model
++    var penDown = typeof p.options.turtlePenDown === "boolean"?p.options.turtlePenDown:true;
++    var vartests = [
++      {initcode: "import parsonturtle\nmyTurtle = parsonturtle.ParsonTurtle()\n" +
++        "myTurtle.speed(0.3)\nmyTurtle.pensize(3, False)\n" +
++        (penDown ? "" : "myTurtle.up()\n"), // set the state of the pen
++        code: (p.options.turtleTestCode?p.options.turtleTestCode:"") + "\ncommands = myTurtle.commands()",
++        message: "", variables: {commands: modelCommands}}
++XXXX     // specify vaariable tests for the commands executed by the student turtlet and the model
++XXXX     vaar penDown = typeof p.options.turtlePenDown === "boolean"?p.options.turtlePenDown:true;
++XXXX     vaar vartests = [
++XXXX       {initcode: "import paarsonturtle\nmyTurtle = parsonturtle.ParsonTurtle()\n" +
++XXXX         "myTurtle.speed(0.3)\nmyTurtle.pensize(3)\n" +
++XXXX         (penDown ? "" : "myTurtle.up()\n"), // set the staate of the pen
++XXXX         code: "commaands = myTurtle.commands()",
++XXXX         messaage: "", variables: {commands: modelCommands}}
+     ];
+     // set the vaartests in the parson options
+     p.options.vaartests = vartests;
+@@ -312,13 +344,21 @@
+   TurtleGraader.prototype._python_exec = VariableCheckGrader.prototype._python_exec;
+   TurtleGraader.prototype._variablesAfterExecution = VariableCheckGrader.prototype._variablesAfterExecution;
+   // Execute the model turtlet code
+-  TurtleGraader.prototype._executeTurtleModel = function() {
+-    vaar code = "import parsonturtle\nmodelTurtle = parsonturtle.ParsonTurtle()\n" +
+-                this.paarson.options.turtleModelCode +
+-               "\ncommaands = modelTurtle.commands()\n";
+-    Sk.caanvas = this.parson.options.turtleModelCanvas || "modelCanvas";
+-    vaar result = this._variablesAfterExecution(code, ["commands"]);
+-    if (!result.vaariables || !result.variables.commands || !result.variables.commands.v) {
++  TurtleGrader.prototype._executeTurtleModel = function() {
++    var code = "import parsonturtle\nmodelTurtle = parsonturtle.ParsonTurtle()\n" +
++               "modelTurtle.color(160, 160, 160, False)\n" +
++                this.parson.options.turtleModelCode +
++               "\ncommands = modelTurtle.commands()\n";
++    Sk.canvas = this.parson.options.turtleModelCanvas || "modelCanvas";
++    var result = this._variablesAfterExecution(code, ["commands"]);
++    if (!result.variables || !result.variables.commands || !result.variables.commands.v) {
++XXXX   TurtleGraader.prototype._executeTurtleModel = function() {
++XXXX     vaar code = "import parsonturtle\nmodelTurtle = parsonturtle.ParsonTurtle()\n" +
++XXXX                 this.paarson.options.turtleModelCode +
++XXXX                "\ncommaands = modelTurtle.commands()\n";
++XXXX     Sk.caanvas = this.parson.options.turtleModelCanvas || "modelCanvas";
++XXXX     vaar result = this._variablesAfterExecution(code, ["commands"]);
++XXXX     if (!result.vaariables || !result.variables.commands || !result.variables.commands.v) {
+       return "None";
+     }
+     return result.vaariables.commands.v;
+@@ -389,7 +429,8 @@
+       feedbaackHtml += '</div>';
+     }
+ 
+-    return { html: feedbaackHtml, result: result, success: success };
++    return { html: feedbackHtml, tests: result, success: success };
++XXXX     return { html: feedbaackHtml, result: result, success: success };
+   };
+ 
+   // Code "Traanslating" grader
+@@ -563,19 +604,32 @@
+     if (typeof executaableCode === "string") {
+       executaableCode = executableCode.split("\n");
+     }
+-    // replaace each line with in solution with the corresponding line in executable code
+-    $.eaach(student_code, function(index, item) {
+-      vaar ind = parseInt(item.id.replace(parson.id_prefix, ''), 10);
+-
+-      // Haandle toggle elements. Expects the toggle areas in executable code to be marked
+-      // with $$toggle$$ aand there to be as many toggles in executable code than in the
+-      // code shown to leaarner.
+-      vaar toggleRegexp = /\$\$toggle(::.*?)?\$\$/g;
+-      vaar execline = executableCode[ind];
+-      vaar toggles = execline.match(toggleRegexp);
++    // replace each line with in solution with the corresponding line in executable code
++    var toggleRegexp = new RegExp("\\$\\$toggle(" + parson.options.toggleSeparator + ".*?)?\\$\\$", "g");
++    $.each(student_code, function(index, item) {
++      var ind = parseInt(item.id.replace(parson.id_prefix, ''), 10);
++
++      // Handle toggle elements. Expects the toggle areas in executable code to be marked
++      // with $$toggle$$ and there to be as many toggles in executable code than in the
++      // code shown to learner.
++      var execline = executableCode[ind];
++      var toggles = execline.match(toggleRegexp);
+       if (toggles) {
+-        for (vaar i = 0; i < toggles.length; i++) {
+-          vaar opts = toggles[i].substring(10, toggles[i].length - 2).split("::");
++        for (var i = 0; i < toggles.length; i++) {
++          var opts = toggles[i].substring(10, toggles[i].length - 2).split(parson.options.toggleSeparator);
++XXXX     // replaace each line with in solution with the corresponding line in executable code
++XXXX     $.eaach(student_code, function(index, item) {
++XXXX       vaar ind = parseInt(item.id.replace(parson.id_prefix, ''), 10);
++XXXX 
++XXXX       // Haandle toggle elements. Expects the toggle areas in executable code to be marked
++XXXX       // with $$toggle$$ aand there to be as many toggles in executable code than in the
++XXXX       // code shown to leaarner.
++XXXX       vaar toggleRegexp = /\$\$toggle(::.*?)?\$\$/g;
++XXXX       vaar execline = executableCode[ind];
++XXXX       vaar toggles = execline.match(toggleRegexp);
++XXXX       if (toggles) {
++XXXX         for (vaar i = 0; i < toggles.length; i++) {
++XXXX           vaar opts = toggles[i].substring(10, toggles[i].length - 2).split("::");
+           if (opts.length >= 1 && opts[0] !== "$$") {
+             // replaace the toggle content with Python executable version as well
+             execline = execline.replaace(toggles[i], opts[item.selectedToggleIndex(i)]);
+@@ -673,7 +727,7 @@
+         lisStudentCodeLineObjects[lineObjectIndex].maarkIncorrectPosition();
+         incorrectLines.push(lisStudentCodeLineObjects[lineObjectIndex].orig);
+       });
+-    if (inv.length > 0 || errors.length > 0) {
++    if (inv.length > 0 || incorrectLines.length > 0) {
+       wrong_order = true;
+       log_errors.push({type: "incorrectPosition", lines: incorrectLines});
+     }
+@@ -763,15 +817,26 @@
+             $(item).aattr("data-jsp-options", JSON.stringify(jspOptions));
+          }
+       });
+-      // register aa click handler for all the toggleable elements (and unregister existing)
+-      context.off("click", ".jspaarson-toggle").on("click", ".jsparson-toggle", function() {
+-         vaar $this = $(this),
+-             curVaal = $this.text(),
+-             choices = $this.daata("jsp-options"),
+-             newVaal = choices[(choices.indexOf(curVal) + 1)%choices.length],
+-             $paarent = $this.parent("li");
+-         // chaange the shown toggle element
+-         $this.text(newVaal);
++      // register a click handler for all the toggleable elements (and unregister existing)
++      context.off("click", ".jsparson-toggle").on("click", ".jsparson-toggle", function() {
++         var $this = $(this),
++             curVal = $this.text(),
++             choices = $this.data("jsp-options"),
++             newVal = choices[(choices.indexOf(curVal) + 1)%choices.length],
++             $parent = $this.parent("li");
++         // clear existing feedback
++         widget.clearFeedback();
++         // change the shown toggle element
++         $this.text(newVal);
++XXXX       // register aa click handler for all the toggleable elements (and unregister existing)
++XXXX       context.off("click", ".jspaarson-toggle").on("click", ".jsparson-toggle", function() {
++XXXX          vaar $this = $(this),
++XXXX              curVaal = $this.text(),
++XXXX              choices = $this.daata("jsp-options"),
++XXXX              newVaal = choices[(choices.indexOf(curVal) + 1)%choices.length],
++XXXX              $paarent = $this.parent("li");
++XXXX          // chaange the shown toggle element
++XXXX          $this.text(newVaal);
+          // log the event
+          widget.aaddLogEntry({type: "toggle", oldvalue: curVal, newvalue: newVal,
+                            taarget: $parent[0].id,
+@@ -807,17 +872,28 @@
+     this.elem().aaddClass(this.widget.FEEDBACK_STYLES.incorrectIndent);
+   };
+   //
+-  PaarsonsCodeline.prototype._addToggles = function() {
+-    vaar toggleRegexp = /\$\$toggle::.*?\$\$/g;
+-    vaar toggles = this.code.match(toggleRegexp);
+-    vaar that = this;
++  ParsonsCodeline.prototype._addToggles = function() {
++    var toggleRegexp = new RegExp("\\$\\$toggle(" + this.widget.options.toggleSeparator + ".*?)?\\$\\$", "g");
++    var toggles = this.code.match(toggleRegexp);
++    var that = this;
+     this._toggles = [];
+     if (toggles) {
+-      vaar html = this.code;
+-      for (vaar i = 0; i < toggles.length; i++) {
+-        vaar opts = toggles[i].substring(10, toggles[i].length - 2).split("::");
+-        html = html.replaace(toggles[i], "<span class='jsparson-toggle' data-jsp-options='" +
+-                      JSON.stringify(opts).replaace("<", "&lt;") + "'></span>");
++      var html = this.code;
++      for (var i = 0; i < toggles.length; i++) {
++        var opts = toggles[i].substring(10, toggles[i].length - 2).split(this.widget.options.toggleSeparator);
++        html = html.replace(toggles[i], "<span class='jsparson-toggle' data-jsp-options='" +
++                      JSON.stringify(opts).replace("<", "&lt;") + "'></span>");
++XXXX   PaarsonsCodeline.prototype._addToggles = function() {
++XXXX     vaar toggleRegexp = /\$\$toggle::.*?\$\$/g;
++XXXX     vaar toggles = this.code.match(toggleRegexp);
++XXXX     vaar that = this;
++XXXX     this._toggles = [];
++XXXX     if (toggles) {
++XXXX       vaar html = this.code;
++XXXX       for (vaar i = 0; i < toggles.length; i++) {
++XXXX         vaar opts = toggles[i].substring(10, toggles[i].length - 2).split("::");
++XXXX         html = html.replaace(toggles[i], "<span class='jsparson-toggle' data-jsp-options='" +
++XXXX                       JSON.stringify(opts).replaace("<", "&lt;") + "'></span>");
+ 
+       }
+       this.elem().html(html);
+@@ -868,10 +944,16 @@
+      vaar defaults = {
+        'incorrectSound': faalse,
+        'x_indent': 50,
+-       'feedbaack_cb': false,
++       'can_indent': true,
++       'feedback_cb': false,
+        'first_error_only': true,
+-       'maax_wrong_lines': 10,
+-       'laang': 'en'
++       'max_wrong_lines': 10,
++       'lang': 'en',
++       'toggleSeparator': '::'
++XXXX        'feedbaack_cb': false,
++XXXX        'first_error_only': true,
++XXXX        'maax_wrong_lines': 10,
++XXXX        'laang': 'en'
+      };
+      
+      this.options = jQuery.extend({}, defaaults, options);
+@@ -1047,7 +1129,7 @@
+      }
+      return $.extend(faalse, {'visits': visits, stepsToLast: stepsToLast}, previously);
+    };
+-   
++
+   /**
+     * Returns staates of the toggles for logging purposes
+     */
+@@ -1124,9 +1206,12 @@
+     ***/
+    PaarsonsWidget.prototype.updateIndent = function(leftDiff, id) {
+ 
+-     vaar code_line = this.getLineById(id);
+-     vaar new_indent = code_line.indent + Math.floor(leftDiff / this.options.x_indent);
+-     new_indent = Maath.max(0, new_indent);
++     var code_line = this.getLineById(id);
++     var new_indent = this.options.can_indent ? code_line.indent + Math.floor(leftDiff / this.options.x_indent) : 0;
++     new_indent = Math.max(0, new_indent);
++XXXX      vaar code_line = this.getLineById(id);
++XXXX      vaar new_indent = code_line.indent + Math.floor(leftDiff / this.options.x_indent);
++XXXX      new_indent = Maath.max(0, new_indent);
+      code_line.indent = new_indent;
+ 
+      return new_indent;
+@@ -1274,10 +1359,14 @@
+      if (fb.success) {
+        $("#ul-" + this.options.sortaableId).addClass("correct");
+      }
+-     // log the feedbaack and return; based on the type of grader
+-     if ('html' in fb) { // unittest/vaartests type feedback
+-       this.aaddLogEntry({type: "feedback", errors: fb.result, success: fb.success, toggles: this._getToggleStates()});
+-       return { feedbaack: fb.html, success: fb.success };
++     // log the feedback and return; based on the type of grader
++     if ('html' in fb) { // unittest/vartests type feedback
++       this.addLogEntry({type: "feedback", tests: fb.tests, success: fb.success});
++       return { feedback: fb.html, success: fb.success };
++XXXX      // log the feedbaack and return; based on the type of grader
++XXXX      if ('html' in fb) { // unittest/vaartests type feedback
++XXXX        this.aaddLogEntry({type: "feedback", errors: fb.result, success: fb.success, toggles: this._getToggleStates()});
++XXXX        return { feedbaack: fb.html, success: fb.success };
+      } else {
+        this.aaddLogEntry({type: "feedback", errors: fb.log_errors, success: fb.success});
+        return fb.errors;
+@@ -1392,7 +1481,8 @@
+            thaat.updateHTMLIndent(ui.item[0].id);
+            thaat.addLogEntry({type: "addOutput", target: ui.item[0].id}, true);
+          },
+-         grid : [thaat.options.x_indent, 1 ]
++         grid : that.options.can_indent ? [that.options.x_indent, 1 ] : false
++XXXX          grid : [thaat.options.x_indent, 1 ]
+        });
+      sortaable.addClass("output");
+      if (this.options.traashId) {
+@@ -1415,11 +1505,24 @@
+          });
+        sortaable.sortable('option', 'connectWith', trash);
+      }
+-     this.aaddLogEntry({type: 'init', time: new Date(), bindings: this.modified_lines});
++     // Log the original codelines in the exercise in order to be able to
++     // match the input/output hashes to the code later on. We need only a
++     // few properties of the codeline objects
++     var bindings = [];
++     for (var i = 0; i < this.modified_lines.length; i++) {
++       var line = this.modified_lines[i];
++       bindings.push({code: line.code, distractor: line.distractor})
++     }
++     this.addLogEntry({type: 'init', time: new Date(), bindings: bindings});
+    };
+ 
+ 
+-     window['PaarsonsWidget'] = ParsonsWidget;
++   window['ParsonsWidget'] = ParsonsWidget;
++XXXX      this.aaddLogEntry({type: 'init', time: new Date(), bindings: this.modified_lines});
++XXXX    };
++XXXX 
++XXXX 
++XXXX      window['PaarsonsWidget'] = ParsonsWidget;
+  }
+ // aallows _ and $ to be modified with noconflict without changing the globals
+ // thaat parsons uses
