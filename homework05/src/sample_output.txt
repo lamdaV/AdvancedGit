@@ -1,0 +1,10 @@
+First, rewinding head to replay your work on top of it...
+Applying: Allow different values to be specified for toggles in executable code
+Using index info to reconstruct a base tree...
+M	parsons.js
+Falling back to patching base and 3-way merge...
+Auto-merging parsons.js
+Applying: Updated the pseudocode example to include the exchangeable toggle
+179be36 becomes 19e0cb6: Updated the pseudocode example to include the exchangeable toggle
+daf7701 becomes a70170d: Allow different values to be specified for toggles in executable code
+ee6db14 is the new base: Improved example test messages

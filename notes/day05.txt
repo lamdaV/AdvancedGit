@@ -1,0 +1,24 @@
+Rebase
+  Suppose we have the commit chain as so
+
+  c1 <-- c2 <-- c3
+     \
+      \- b1
+
+  Suppose that b1 was committed before c2, c3.
+  Now what if the two branches are completely different from each other.
+  We can imagine that it commit chain could be like so:
+
+  c1 <-- b1 <-- c2 <-- c3
+
+  We could get the deltas, changes from one commit to the other, from c2 to c1 (c2') and c3 to c1 (c3').
+  We then could just apply those deltas to b1.
+
+  This is a rebase
+  Command:
+    git checkout c_branch (this branch becomes the delta to me applied to master)
+    git rebase master
+
+  Rebase should be done in your own local history. It should not be done on the shared repo.
+
+  

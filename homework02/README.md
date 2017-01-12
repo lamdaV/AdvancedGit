@@ -1,21 +1,21 @@
 # Git Alternate History With Plumbing Commands
 
-# Description:
+## Description:
 This script creates alternate history branch given a list of tree SHA1 hashes and a new branch name.
 
-# How To Use:
+## How To Use:
 The script must be called from within a git repository.
 Call the script like so:
 
 `λ python path\to\alternate_history.py -t <tree hash> ... -n <branch_name>`
 
-## Arguments:
+### Arguments:
 `tree hash`: Tree SHA1 hashes that are space separated.
 `branch_name`: Name of created branch.
 
 **Note:** The argument may come in any order as long as the flag is given.
 
-# Example:
+## Example:
 There is an example file `trialRun.txt` within the `src` directory. This was the resulting output of the following command:
 
 `λ python path\to\alternate_history.py -t 4a218e805a4b cafd0d12 e6ab292b -n alternate_history_test`
