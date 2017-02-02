@@ -1,0 +1,49 @@
+Branches:
+  Making a new branch:
+    git branch <name>
+
+  Check:
+    git branch
+      * master
+        <name>
+
+  The * means that you are currently on that branch. In this case, you are on master.
+
+  Switch branch:
+    git checkout <name>
+
+  Check:
+    git branch
+        master
+      * <name>
+
+  Why not both?
+    git checkout -b <name>
+
+  This makes the branch and switches to the branch.
+
+  Rename Branch:
+    git branch -m <name> <new_name>
+
+  Delete Branch:
+    git branch -d <name>
+
+  You should do this when you are not on the branch.
+
+  Can You Delete A Branch With Unmerged Changes?
+    No. This is a protection mechanism as these changes in the branch are not reachable from any other branch. Even if the sha1 hash is known, the garbage collector can collect this orphaned change and it will be lost.
+
+Remotes:
+  Different version of the same repository that git knows about. For example, for some project on github, there is your repo on your local machine, the repo on your collaborator's machine, and fork's of the same repo.
+
+  How to add remote?
+    git remote add <remote_name> <uri>
+
+  Origin is a remote name.
+
+  Using remotes with fetch, push, pull:
+    git fetch <remote_name>
+    git push <remote_name> <branch_name>
+    git pull <remote_name> <branch_name>
+
+  git checkout <remote>/<branch> will use the local repo of the branch. You need to do a git fetch to update the state of the remote tracked branches.
