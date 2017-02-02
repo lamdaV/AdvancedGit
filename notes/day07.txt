@@ -47,3 +47,10 @@ Remotes:
     git pull <remote_name> <branch_name>
 
   git checkout <remote>/<branch> will use the local repo of the branch. You need to do a git fetch to update the state of the remote tracked branches.
+
+  Branches are commits with name. It has an idea of an upstream. If you make a new branch, it does not have a parent (upstream). You need to set it up; however, you can still push and pull from any branch.
+
+  If you do a git fetch on a different remote, it may state that it has created a bunch of new branches; however, in reality, it has not. It is informing you that this remote has these branches.
+
+  Cool Command:
+    git branch -vv [Provides the brance name, sha1, latest commit message, ahead/behind]
