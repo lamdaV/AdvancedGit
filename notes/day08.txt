@@ -1,0 +1,56 @@
+Git Config:
+  git config --global core.editor emacs
+
+  is an example of a command to edit the .gitconfig
+
+  Identity:
+    [user]
+      email = <email>
+      name = <name>
+
+    Commit information is used here.
+
+  Editor:
+    [core]
+      editor = <editor>
+
+  Color:
+    [color "branch"]
+      current = yellow reverse
+      local = yellow
+      remote = green
+
+    [color "diff"]
+      whitespace = red reverse # changes whitespace to red.
+
+    Try to avoid it because it might screw with the script.
+
+  Alias:
+    [alias]
+      co = checkout
+      check-master = !git fetch origin master && git diff origin/master
+
+    ! runs the command as a command line.
+
+  Autocorrect:
+    [help]
+      autocorrect = 10
+    Automatically runs misspelled commands
+
+  Garbage Collection
+    [gc]
+      auto = 0
+      reflogExpire = never
+      reflogExpireUnreachable = never
+
+    Never garbage collect.
+
+  Merge:
+    [merge]
+      conflictstyle = diff3
+    or
+
+    [merge]
+      tool = mymeld
+    [mergetool "mymeld"]
+      cmd = <cmd>
